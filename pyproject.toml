@@ -23,6 +23,10 @@ dependencies = [
     "uvloop>=0.22.1; platform_system != 'Windows'",
 ]
 
+[project.urls]
+Homepage = "https://github.com/dedalus-labs/tavily-mcp"
+Repository = "https://github.com/dedalus-labs/tavily-mcp"
+
 [dependency-groups]
 test = [
     "anyio>=4.11.0",
