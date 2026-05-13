@@ -1,0 +1,65 @@
+# --- BUILD SYSTEM ---
+
+[build-system]
+requires = ["uv_build>=0.8.22,<0.9.0"]
+build-backend = "uv_build"
+
+# --- PROJECT CONFIGURATION ---
+
+[project]
+name = "tavily-mcp"
+version = "0.1.0"
+description = "A web search and extraction MCP server powered by Tavily."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [{ name = "Dedalus Labs" }]
+keywords = ["ai", "mcp", "agents", "dedalus", "tavily", "search", "web"]
+
+dependencies = [
+    "dedalus-mcp>=0.7.0",
+    "pydantic>=2.12.5",
+    "python-dotenv>=1.2.1",
+    "uvloop>=0.22.1; platform_system != 'Windows'",
+]
+
+[dependency-groups]
+test = [
+    "anyio>=4.11.0",
+    "pytest>=8.4.2",
+    "pytest-asyncio>=1.2.0",
+    "pytest-mock>=3.15.1",
+]
+lint = ["ruff>=0.13.3"]
+dev = [
+    { include-group = "test" },
+    { include-group = "lint" },
+]
+
+[tool.uv]
+preview = true
+package = false
+cache-dir = ".cache/uv"
+
+[tool.ruff]
+target-version = "py310"
+line-length = 120
+fix = true
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM", "N"]
+ignore = ["E501"]
+
+[tool.ruff.lint.per-file-ignores]
+"src/main.py" = ["E402"]
+"src/_client.py" = ["E402"]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "function"
+pythonpath = ["src"]
