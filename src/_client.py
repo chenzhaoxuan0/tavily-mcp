@@ -9,10 +9,14 @@ load_dotenv()
 
 AS_TOKEN_URL = "https://as.dedaluslabs.ai/oauth2/token"
 
+# Generous timeouts for the auth-server JWKS / token handshake on this
+# Windows env where TLS to as.dedaluslabs.ai takes ~7s.
+_HTTPX_TIMEOUT = httpx.Timeout(60.0, connect=30.0)
+
 
 async def _exchange_token(api_key: str) -> str:
     """Exchange Dedalus API key for a JWT access token via AS token-exchange."""
-    async with httpx.AsyncClient() as http:
+    async with httpx.AsyncClient(timeout=_HTTPX_TIMEOUT) as http:
         resp = await http.post(
             AS_TOKEN_URL,
             data={

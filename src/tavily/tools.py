@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import os
 from typing import Any
 
 from dedalus_mcp import HttpMethod, HttpRequest, get_context, tool
@@ -11,9 +12,10 @@ from tavily.types import ExtractResult, SearchResult
 # --- Connection ---
 
 _BASE_URL = "https://api.tavily.com"
+_CONNECTION_NAME = os.getenv("TAVILY_CONNECTION_NAME", "Zx-tavily-mcp")
 
 tavily_conn = Connection(
-    name="tavily",
+    name=_CONNECTION_NAME,
     secrets=SecretKeys(token="TAVILY_API_KEY"),
     base_url=_BASE_URL,
     auth_header_format="Bearer {api_key}",
@@ -28,7 +30,7 @@ tavily_connections = [tavily_conn]
 async def _dispatch(path: str, body: dict[str, Any]) -> tuple[dict[str, Any], str | None]:
     ctx = get_context()
     resp = await ctx.dispatch(
-        "tavily",
+        _CONNECTION_NAME,
         HttpRequest(method=HttpMethod.POST, path=path, body=body),
     )
     if resp.success and resp.response is not None:
