@@ -12,7 +12,7 @@ from tavily.types import ExtractResult, SearchResult
 # --- Connection ---
 
 _BASE_URL = "https://api.tavily.com"
-_CONNECTION_NAME = os.getenv("TAVILY_CONNECTION_NAME", "Zx-tavily-mcp")
+_CONNECTION_NAME = os.getenv("TAVILY_CONNECTION_NAME", "tavily-mcp")
 
 tavily_conn = Connection(
     name=_CONNECTION_NAME,
