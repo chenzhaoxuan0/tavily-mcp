@@ -12,7 +12,14 @@ from tavily.types import ExtractResult, SearchResult
 # --- Connection ---
 
 _BASE_URL = "https://api.tavily.com"
-_CONNECTION_NAME = os.getenv("TAVILY_CONNECTION_NAME", "tavily-mcp")
+
+
+def _default_connection_name() -> str:
+    slug = os.getenv("MCP_SERVER_SLUG", "Zx/tavily-mcp")
+    return slug.replace("/", "-")
+
+
+_CONNECTION_NAME = os.getenv("TAVILY_CONNECTION_NAME") or _default_connection_name()
 
 tavily_conn = Connection(
     name=_CONNECTION_NAME,
@@ -30,7 +37,6 @@ tavily_connections = [tavily_conn]
 async def _dispatch(path: str, body: dict[str, Any]) -> tuple[dict[str, Any], str | None]:
     ctx = get_context()
     resp = await ctx.dispatch(
-        _CONNECTION_NAME,
         HttpRequest(method=HttpMethod.POST, path=path, body=body),
     )
     if resp.success and resp.response is not None:
