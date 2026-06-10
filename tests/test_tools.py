@@ -4,7 +4,15 @@ from typing import Any
 
 import pytest
 
-from tavily import ExtractResult, SearchResult, tavily_extract, tavily_qna_search, tavily_search
+from tavily import ExtractResult, SearchResult, smoke_ping, tavily_extract, tavily_qna_search, tavily_search
+
+
+@pytest.mark.asyncio
+async def test_smoke_ping_echoes_message() -> None:
+    result = await smoke_ping(message="dedalus-check")
+
+    assert result.ok
+    assert result.message == "dedalus-check"
 
 
 # --- tavily_search ---

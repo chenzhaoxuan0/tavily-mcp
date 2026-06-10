@@ -2,8 +2,8 @@ import asyncio
 import os
 
 import httpx
-from dotenv import load_dotenv
 from dedalus_mcp.client import BearerAuth, open_connection
+from dotenv import load_dotenv
 
 load_dotenv()
 

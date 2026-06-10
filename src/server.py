@@ -3,7 +3,7 @@ import os
 from dedalus_mcp import MCPServer
 from dedalus_mcp.server import TransportSecuritySettings
 
-from tavily import tavily_connections, tavily_tools
+from tavily import smoke_tools, tavily_connections, tavily_tools
 
 
 def create_server() -> MCPServer:
@@ -19,5 +19,5 @@ def create_server() -> MCPServer:
 
 async def main() -> None:
     server = create_server()
-    server.collect(*tavily_tools)
+    server.collect(*smoke_tools, *tavily_tools)
     await server.serve(port=8080)

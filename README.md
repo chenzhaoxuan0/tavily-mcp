@@ -6,6 +6,7 @@ A web search and extraction MCP server powered by [Tavily](https://tavily.com), 
 
 | Tool | Description |
 |------|-------------|
+| `smoke_ping` | Verify the Dedalus MCP server can be invoked without external Tavily dispatch |
 | `tavily_search` | Search the web with AI-generated answer synthesis |
 | `tavily_extract` | Extract clean content from URLs |
 | `tavily_qna_search` | Ask a question and get a direct answer with sources |
@@ -18,6 +19,8 @@ A web search and extraction MCP server powered by [Tavily](https://tavily.com), 
 | `DEDALUS_API_KEY` | Yes | Dedalus platform API key |
 | `DEDALUS_API_URL` | No | Dedalus API base URL |
 | `DEDALUS_AS_URL` | No | Dedalus auth server URL (default: `https://as.dedaluslabs.ai`) |
+| `MCP_SERVER_SLUG` | No | Marketplace slug used to derive the default connection name (default: `Zx/tavily-mcp`) |
+| `TAVILY_CONNECTION_NAME` | No | Explicit connection name override. For slug calls, prefer `Zx-tavily-mcp` |
 
 ## Quick Start
 
